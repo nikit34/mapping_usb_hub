@@ -1,0 +1,33 @@
+- list all
+
+dmesg | grep ttyUSB  
+
+
+- view info 
+
+udevadm info --name=/dev/ttyUSB<x> --attribute-walk
+
+
+- custom regulars
+
+Create /etc/udev/rules.d/10-local.rules
+
+ATRIBUTE=="unique_value"
+
+example:
+KERNELS=="1-10.4.1:1.0"
+
+
+- load rule
+
+sudo udevadm trigger
+
+! Physically pull out and plug in the cord USB
+
+
+- test connect
+
+udevadm test -a -p  $(udevadm info -q path -n /dev/unique_value)
+
+
+--documentation: http://www.reactivated.net/writing_udev_rules.html
